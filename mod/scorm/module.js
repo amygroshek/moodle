@@ -632,3 +632,57 @@ M.mod_scorm.connectPrereqCallback = {
     }
 
 };
+
+/**
+ * Checks network connection at interval, and notifies user if network connection is dropped.
+ *
+ * @package mod-scorm
+ * @type Object
+ */
+M.mod_scorm.checknet = {
+    interval: 5000, // Milliseconds
+    url: M.cfg.wwwroot + '/mod/scorm/checknet.html',
+    isalert: false, // Alert thrown only once
+    panel: undefined,
+    alerttext: function(){
+        var alerttext = M.util.get_string('networkdropped', 'scorm');
+        if (alerttext.length <= 0) {
+            alerttext = 'Warning: Network connection dropped. Exit the activity and return when you have a dependable Internet connection.';
+        }
+        return alerttext;
+    },
+    check: function() {
+        var $this = this;
+        YUI().use("io-base", function(Y) {
+            // Check quality of response data
+            function successCheck(id, o) {
+                var data = Boolean( o.responseText );
+                if ( !data ) {
+                    $this.throwpanel();
+                }
+            }
+            var uri = $this.url;
+            // Listener for call completion
+            var succ = Y.on('io:success', successCheck);
+            var fail = Y.on('io:failure', function() {
+                $this.throwpanel();
+            });
+            // Timeout important for detecting client-side network issues
+            var cfg = {
+                timeout: 2000
+            };
+            // Request object
+            var request = Y.io(uri, cfg);
+        });
+    },
+    throwpanel: function() {
+        var $this = this;
+        if ($this.isalert === false) {
+            $this.isalert = true;
+            $this.panel = alert($this.alerttext());
+        }
+    },
+    timer: function(){
+        var t = setInterval('M.mod_scorm.checknet.check()', this.interval);
+    }
+};
