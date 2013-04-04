@@ -850,3 +850,65 @@ M.mod_scorm.connectPrereqCallback = {
     }
 
 };
+
+/**
+ * Checks network connection at interval, and notifies user if network connection is dropped.
+ *
+ * @package mod-scorm
+ * @type Object
+ */
+M.mod_scorm.checknet = {
+    interval: 5000, // Milliseconds
+    url: M.cfg.wwwroot + '/mod/scorm/checknet.txt?stamp=',
+    isalert: false, // Alert thrown only once
+    panel: undefined,
+    alerttext: function(){
+        var alerttext = M.util.get_string('networkdropped', 'scorm');
+        if (alerttext.length <= 0) {
+            alerttext = 'Warning: Network connection dropped. Exit the activity and return when you have a dependable Internet connection.';
+        }
+        return alerttext;
+    },
+    check: function() {
+        var $this = this;
+        YUI().use("io-base", function(Y) {
+            // Check quality of response data
+            function successCheck(id, o) {
+                var data = !!o.responseText;
+                if (!data) {
+                    $this.throwpanel();
+                    clearInterval($this.timer);
+                }
+            }
+            var date = new Date();
+            var time = date.getTime();
+            var num = Math.floor(Math.random()*4000);
+            var uri = $this.url + time + num; // Prevent caching by IE
+            // Listener for call completion
+            var succ = Y.on('io:success', successCheck);
+            var fail = Y.on('io:failure', function() {
+                $this.throwpanel();
+                clearInterval($this.timer);
+            });
+            // Timeout important for detecting client-side network issues
+            var cfg = {
+                timeout: 2000,
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Expires': '-1'
+                }
+            };
+            // Request object
+            var request = Y.io(uri, cfg);
+        });
+    },
+    throwpanel: function() {
+        if (this.isalert === false) {
+            this.isalert = true;
+            this.panel = alert(this.alerttext());
+        }
+    },
+    timer: function(){
+        this.timer = setInterval(M.mod_scorm.checknet.check.bind(this), this.interval);
+    }
+};

@@ -188,6 +188,7 @@ $PAGE->requires->string_for_js('toc', 'scorm');
 $PAGE->requires->string_for_js('hide', 'moodle');
 $PAGE->requires->string_for_js('show', 'moodle');
 $PAGE->requires->string_for_js('popupsblocked', 'scorm');
+$PAGE->requires->string_for_js('networkdropped', 'scorm');
 
 $name = false;
 
@@ -272,4 +273,12 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
 if (!empty($forcejs)) {
     echo $OUTPUT->box(get_string("forcejavascriptmessage", "scorm"), "generalbox boxaligncenter forcejavascriptmessage");
 }
+
+$jsmodule = array(
+    'name' => 'mod_scorm',
+    'fullpath' => '/mod/scorm/module.js',
+    'requires' => array('io-base')
+);
+$PAGE->requires->js_init_call('M.mod_scorm.checknet.timer', null, true, $jsmodule);
+
 echo $OUTPUT->footer();
