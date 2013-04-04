@@ -352,3 +352,4 @@ Notes on handling of multiple attempts:
 $string['whatgradedesc'] = 'Whether the highest, average (mean), first or last completed attempt is recorded in the gradebook if multiple attempts are allowed.';
 $string['width'] = 'Width';
 $string['window'] = 'Window';
+$string['networkdropped'] = 'Moodle\'s SCORM player has determined that your Internet connection is unreliabile or has been dropped. If you continue in this SCORM activity, your progress may not be saved. You should exit the activity now, and return when you have a dependable Internet connection.';
