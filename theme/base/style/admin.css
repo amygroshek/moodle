@@ -93,14 +93,14 @@
 #page-admin-index .adminwarning.maturityinfo.maturity100,
 #page-admin-index .adminwarning.maturityinfo.maturity150 {background-color:#f3f2aa;}
 
-#page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo {line-height:1.8;margin:20px auto;width:60%;text-align:left;}
+#page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo {line-height:1.8;margin:20px auto;width:80%;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo .info.release {margin-right:10px;padding:5px 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo.maturity50 .info.release {background-color:#ffd3d9;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo.maturity100 .info.release,
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo.maturity150 .info.release {background-color:#f3f2aa;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo.maturity200 .info.release {background-color:#d2ebff;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo span,
-#page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo a {padding-right:1em;}
+#page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo a {padding-right: 0.5em;}
 #page-admin-index .adminwarning.availableupdatesinfo .moodleupdateinfo .separator {border-left:1px dotted #333;}
 
 #page-admin-index .updateplugin div,
