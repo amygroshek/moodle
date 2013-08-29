@@ -104,6 +104,15 @@ YUI.add('moodle-course-dragdrop', function(Y) {
             return Number(node.get('id').replace(/section-/i, ''));
         },
 
+        get_section_index : function(node) {
+            var sectionlistselector = M.course.format.get_section_selector(Y);
+            sectionlistselector = '.'+CSS.COURSECONTENT+' '+sectionlistselector;
+            var sectionlist = Y.Node.all(sectionlistselector);
+            var nodeindex = sectionlist.indexOf(node);
+            var zeroindex = sectionlist.indexOf(Y.Node.one('#section-0'));
+            return nodeindex - zeroindex;
+        },
+
         /*
          * Drag-dropping related functions
          */
@@ -136,13 +145,17 @@ YUI.add('moodle-course-dragdrop', function(Y) {
             var dropnode = e.drop.get('node');
             // Prepare some variables
             var dragnodeid = Number(this.get_section_id(dragnode));
-            var dropnodeid = Number(this.get_section_id(dropnode));
+            var dropindex = this.get_section_index(dragnode);
+
+            if (dragnodeid == dropindex) {
+                return;
+            }
 
             var loopstart = dragnodeid;
-            var loopend = dropnodeid;
+            var loopend = dropindex;
 
-            if (this.goingup) {
-                loopstart = dropnodeid;
+            if (loopstart > loopend) {
+                loopstart = dropindex;
                 loopend = dragnodeid;
             }
 
@@ -167,7 +180,7 @@ YUI.add('moodle-course-dragdrop', function(Y) {
             params['class'] = 'section';
             params.field = 'move';
             params.id = dragnodeid;
-            params.value = dropnodeid;
+            params.value = dropindex;
 
             // Do AJAX request
             var uri = M.cfg.wwwroot + this.get('ajaxurl');
