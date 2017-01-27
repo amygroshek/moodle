@@ -156,6 +156,10 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('scorm/forcejavascript', get_string('forcejavascript', 'scorm'),
                                                     get_string('forcejavascript_desc', 'scorm'), 1));
 
+    // Disable check network, solution for high latency user connections.
+    $settings->add(new admin_setting_configcheckbox('scorm/disablechecknet', get_string('disablechecknet', 'scorm'),
+                                                    get_string('disablechecknet_desc', 'scorm'), 0));
+
     $settings->add(new admin_setting_configcheckbox('scorm/allowapidebug', get_string('allowapidebug', 'scorm'), '', 0));
 
     $settings->add(new admin_setting_configtext('scorm/apidebugmask', get_string('apidebugmask', 'scorm'), '', '.*'));
