@@ -276,10 +276,14 @@ if (file_exists($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'.php')) 
 }
 
 // Add the checknet system to keep checking for a connection.
-$PAGE->requires->string_for_js('networkdropped', 'mod_scorm');
-$PAGE->requires->yui_module('moodle-core-checknet', 'M.core.checknet.init', array(array(
-    'message' => array('networkdropped', 'mod_scorm'),
-)));
+$disablechecknet = get_config('scorm', 'disablechecknet');
+if (empty($disablechecknet) || $disablechecknet === 0) {
+    $PAGE->requires->string_for_js('networkdropped', 'mod_scorm');
+    $PAGE->requires->yui_module('moodle-core-checknet', 'M.core.checknet.init', array(array(
+        'message' => array('networkdropped', 'mod_scorm'),
+    )));
+}
+
 echo $OUTPUT->footer();
 
 // Set the start time of this SCO.

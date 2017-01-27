@@ -102,6 +102,10 @@ $string['deleteselected'] = 'Delete selected attempts';
 $string['deleteuserattemptcheck'] = 'Are you absolutely sure you want to completely delete all your attempts?';
 $string['details'] = 'Track details';
 $string['directories'] = 'Show the directory links';
+$string['disablechecknet'] = 'Disable network checks';
+$string['disablechecknet_desc'] = 'Disables JavaScript network check sent at intervals from the SCORM player. WARNING: This check '.
+                                  'ensures that learner progress is saved through the SCORM API. If you disable it, you may have '.
+                                  'users who complete SCORM activities but receive no score!';
 $string['disabled'] = 'Disabled';
 $string['display'] = 'Display package';
 $string['displayactivityname'] = 'Display activity name';
