@@ -49,7 +49,7 @@ class behat_message extends behat_base {
 
         $this->execute('behat_general::i_click_on_in_the',
             array(
-                "//button[@data-action='view-contact-profile']
+                "//a[@data-action='view-contact-profile']
                 [contains(normalize-space(.), '" . $this->escape($userfullname) . "')]",
                 'xpath_element',
                 ".messages-header",

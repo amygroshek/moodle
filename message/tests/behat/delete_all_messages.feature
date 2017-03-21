@@ -17,7 +17,7 @@ Feature: Delete all messages
     When I log in as "user1"
     And I follow "Messages" in the user menu
     And I click on "start-delete-messages" "message_area_action"
-    And I click on "Delete all" "button"
+    And I click on "Delete all" "link"
     # Confirm dialogue.
     And I click on "Yes" "button"
     # Confirm the interface is immediately updated.
