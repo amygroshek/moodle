@@ -168,8 +168,9 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
         // Redirect back to the correct section if one section per page is being used.
         $exiturl = course_get_url($course, $cm->sectionnum);
     }
+    $btnclasses = 'btn btn-default';
 
-    $exitlink = html_writer::link($exiturl, $strexit, array('title' => $strexit));
+    $exitlink = html_writer::link($exiturl, $strexit, array('title' => $strexit, 'class' => $btnclasses));
     $PAGE->set_button($exitlink);
 }
 
